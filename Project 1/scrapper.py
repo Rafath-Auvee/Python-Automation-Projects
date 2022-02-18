@@ -24,14 +24,21 @@ result = bs(data, 'html.parser')
 
 # print(result.prettify())
 
-names = result.find_all("h3", attrs={"class": "title"})
-ranks = result.find_all("h6", attrs={"class": "designation-title"})
-phones = result.find_all("span", attrs={"class": "designation-title"})
-print(ranks)
+permanent = result.find("div", attrs={"class": "row clearfix"}) 
+# print(permanent)
+names = permanent.find_all("h3", attrs={"class": "title"})
+ranks = permanent.find_all("h6", attrs={"class": "designation-title"})
+stars = permanent.find_all("span", attrs={"class": "qualification"})
+phones = permanent.find_previous_siblings("span", attrs={"class": "email"})
 
-for name,rank in zip(names,ranks):
-    data = [name.string.strip(), rank.string.strip()]
-    print(data)
-    # print(f'{name.string.strip()} = {rank.string.strip()}')  
-    # print(rank.string.strip())
 
+
+emails = permanent.find_all("span", attrs={"class": "email"})
+emails = [email['title'] for email in emails]
+
+
+
+# for name,rank,star, email in zip(names,ranks,stars,emails):
+#     # data = [name.string.strip(), rank.string.strip()]
+#     # print(data)
+#     print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()}\n')  
