@@ -29,16 +29,22 @@ permanent = result.find("div", attrs={"class": "row clearfix"})
 names = permanent.find_all("h3", attrs={"class": "title"})
 ranks = permanent.find_all("h6", attrs={"class": "designation-title"})
 stars = permanent.find_all("span", attrs={"class": "qualification"})
-phones = permanent.find_previous_siblings("span", attrs={"class": "email"})
+all_phones = permanent.find_all("div", attrs={"class": "profile-contact-info"})
+# all_phones = permanent.select("div.profile-contact-info > span")
 
+# print(phones.findChild().text.strip())
 
+phones = [phone.findChild().text.strip() for phone in all_phones]
+
+# for phone in phones:
+#   print(f"{phone}\n")
 
 emails = permanent.find_all("span", attrs={"class": "email"})
 emails = [email['title'] for email in emails]
 
 
 
-# for name,rank,star, email in zip(names,ranks,stars,emails):
-#     # data = [name.string.strip(), rank.string.strip()]
-#     # print(data)
-#     print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()}\n')  
+for name,rank,star,email,phone in zip(names,ranks,stars,emails,phones):
+    # data = [name.string.strip(), rank.string.strip()]
+    # print(data)
+    print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()} ==== {phone}')  
