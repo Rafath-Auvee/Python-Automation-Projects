@@ -6,6 +6,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
+import csv
 
 now = datetime.datetime.now()
 
@@ -44,7 +45,16 @@ emails = [email['title'] for email in emails]
 
 
 
+data_list = []
+csvheader = ['Name', 'Rank', 'Qualification', 'Email', 'Phone']
+
 for name,rank,star,email,phone in zip(names,ranks,stars,emails,phones):
-    # data = [name.string.strip(), rank.string.strip()]
-    # print(data)
-    print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()} ==== {phone}')  
+    data = [name.string.strip(), rank.string.strip(),star.string.strip(), email.strip() ,  phone.strip()]
+    print(data)
+    data_list.append(data)
+    # print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()} ==== {phone} ')      
+
+with open('info2.csv', 'w', newline='',encoding='utf-8') as f:
+  writer = csv.writer(f)
+  writer.writerow(csvheader)
+  writer.writerows(data_list)
