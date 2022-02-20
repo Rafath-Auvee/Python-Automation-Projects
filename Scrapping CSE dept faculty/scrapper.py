@@ -35,15 +35,13 @@ all_phones = permanent.find_all("div", attrs={"class": "profile-contact-info"})
 
 # print(phones.findChild().text.strip())
 
-phones = [phone.findChild().text.strip() for phone in all_phones]
+phones = [phone.findChild().text.lstrip() for phone in all_phones]
 
 # for phone in phones:
 #   print(f"{phone}\n")
 
 emails = permanent.find_all("span", attrs={"class": "email"})
 emails = [email['title'] for email in emails]
-
-
 
 data_list = []
 csvheader = ['Name', 'Rank', 'Qualification', 'Email', 'Phone']
@@ -52,9 +50,10 @@ for name,rank,star,email,phone in zip(names,ranks,stars,emails,phones):
     data = [name.string.strip(), rank.string.strip(),star.string.strip(), email.strip() ,  phone.strip()]
     print(data)
     data_list.append(data)
+    # data = [phone]
     # print(f'{name.string.strip()} = {rank.string.strip()} = {star.string.strip()} --> {email.strip()} ==== {phone} ')      
 
-with open('info2.csv', 'w', newline='',encoding='utf-8') as f:
-  writer = csv.writer(f)
-  writer.writerow(csvheader)
-  writer.writerows(data_list)
+# with open('info3.csv', 'w', newline='',encoding='utf-8') as f:
+#   writer = csv.writer(f)
+#   writer.writerow(csvheader)
+#   writer.writerows(data_list)
