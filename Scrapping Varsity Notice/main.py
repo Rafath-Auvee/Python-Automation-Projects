@@ -67,15 +67,15 @@ email_portion +=('<br><br>End of Message')
 SERVER = 'smtp.gmail.com' 
 PORT = 587 
 FROM =  'jacobcass73@gmail.com' # "your from email id"
-TO = 'rafath.auvee@gmail.com, yeasir06@gmail.com' # "your to email ids"  # can be a list
-PASS = 'auveE_123' # "your email id's password"
+TO = ['rafath.auvee@gmail.com', 'yeasir06@gmail.com'] # "your to email ids"  # can be a list
+PASS = '' # "your email id's password"
 
 
 msg = MIMEMultipart()
 msg['Subject'] = 'BAUST Notice Board [Automated Email]' + ' ' + str(now.day) + ' - ' + str(now.month) + '-' + str(
     now.year)
 msg['From'] = FROM
-msg['To'] = TO
+msg['To'] = ", ".join(TO)
 
 msg.attach(MIMEText(email_portion, 'html'))
 # fp.close()
