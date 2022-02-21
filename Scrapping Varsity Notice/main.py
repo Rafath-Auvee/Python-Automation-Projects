@@ -7,6 +7,7 @@ import datetime
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import password
 
 # collecting current time 
 now = datetime.datetime.now()
@@ -62,13 +63,14 @@ email_portion +=('<br><br>End of Message')
 # print(email_portion)
 
 
+
 # smtp part 
 
 SERVER = 'smtp.gmail.com' 
 PORT = 587 
 FROM =  'jacobcass73@gmail.com' # "your from email id"
 TO = ['rafath.auvee@gmail.com', 'yeasir06@gmail.com'] # "your to email ids"  # can be a list
-PASS = '' # "your email id's password"
+PASS = password.password # "your email id's password"
 
 
 msg = MIMEMultipart()
