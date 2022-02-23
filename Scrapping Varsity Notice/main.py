@@ -8,6 +8,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import password
+import csv
 
 # collecting current time 
 now = datetime.datetime.now()
@@ -43,6 +44,7 @@ def parsing_notice_board(url):
   link = [link["href"].strip()  for link in links]
 
   info = []
+  csvheader = ['No', 'Title', 'Date', 'Month', 'Link']
   # printing all values
   for i, (title, date, month, link) in enumerate(zip(title, date, month, link)):
     data = [str(i+1),title, date, month, link]
@@ -51,6 +53,10 @@ def parsing_notice_board(url):
     doc += (f'{str(i+1)}: {title} --> [{date}-{month}]\n<br>{link}\n\n<br><br>')
     # print(f'{title} \n{date}-{month}\n{link}\n')
     # print(data)
+  with open('notice.csv', 'a', newline='',encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader)
+    writer.writerows(info)
   return doc
 
 data = parsing_notice_board(url)
@@ -64,10 +70,10 @@ email_portion +=('<br><br>End of Message')
 
 
 
-# smtp part 
+# smtp part
 
-SERVER = 'smtp.gmail.com' 
-PORT = 587 
+SERVER = 'smtp.gmail.com'
+PORT = 587
 FROM =  'jacobcass73@gmail.com' # "your from email id"
 TO = ['rafath.auvee@gmail.com', 'yeasir06@gmail.com'] # "your to email ids"  # can be a list
 PASS = password.password # "your email id's password"
